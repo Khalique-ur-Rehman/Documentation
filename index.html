@@ -1,0 +1,1457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UMS, Custom Quest, Activity Logger &amp; OBE System – User Guide</title>
+    <style>
+    /* ---------- Base layout ---------- */
+    *, *::before, *::after {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+        line-height: 1.7;
+        background:
+            radial-gradient(circle at top left, #dbeafe 0, rgba(219,234,254,0) 55%),
+            radial-gradient(circle at bottom right, #fee2e2 0, rgba(254,226,226,0) 60%),
+            #f3f4f6;
+        color: #0f172a;
+    }
+
+    .container {
+        max-width: 1180px;
+        margin: 32px auto 48px;
+        background: #ffffff;
+        padding: 48px 60px 56px;
+        border-radius: 18px;
+        box-shadow:
+            0 20px 55px rgba(15, 23, 42, 0.18),
+            0 0 0 1px rgba(148, 163, 184, 0.16);
+        border-top: 5px solid #2563eb;
+    }
+
+    /* ---------- Headings ---------- */
+    h1, h2, h3, h4 {
+        margin-top: 0;
+        color: #0f172a;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 2.4rem;
+        letter-spacing: 0.04em;
+        margin-bottom: 0.35rem;
+        background: linear-gradient(135deg, #1d4ed8, #7c3aed);
+        -webkit-background-clip: text;
+        color: transparent;
+    }
+
+    h1 + p {
+        text-align: center;
+        margin-top: 0;
+        color: #6b7280;
+        font-size: 0.95rem;
+    }
+
+    h2 {
+        margin-top: 46px;
+        font-size: 1.45rem;
+        letter-spacing: 0.03em;
+        text-transform: uppercase;
+        position: relative;
+        padding-left: 16px;
+    }
+
+    h2::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 5px;
+        bottom: 5px;
+        width: 4px;
+        border-radius: 999px;
+        background: linear-gradient(180deg, #2563eb, #7c3aed);
+    }
+
+    h3 {
+        margin-top: 26px;
+        font-size: 1.16rem;
+        color: #111827;
+    }
+
+    h4 {
+        margin-top: 20px;
+        font-size: 1.02rem;
+        color: #374151;
+    }
+
+    /* ---------- Text & lists ---------- */
+    p {
+        margin: 10px 0;
+        font-size: 0.98rem;
+    }
+
+    ul, ol {
+        margin: 6px 0 10px 26px;
+        font-size: 0.96rem;
+    }
+
+    li + li {
+        margin-top: 2px;
+    }
+
+    code {
+        font-family: "Consolas", "Courier New", monospace;
+        background: #e5e7eb;
+        padding: 1px 5px;
+        border-radius: 3px;
+        font-size: 0.9em;
+    }
+
+    strong {
+        color: #111827;
+        font-weight: 600;
+    }
+
+    /* ---------- Table of contents ---------- */
+    .toc-wrapper {
+        background: linear-gradient(135deg, #eff6ff, #f9fafb);
+        border: 1px solid #d4e0ff;
+        border-radius: 14px;
+        padding: 18px 22px 14px;
+        margin-top: 12px;
+        box-shadow: 0 8px 22px rgba(148, 163, 184, 0.3);
+    }
+
+    .toc {
+        margin: 0;
+        padding-left: 20px;
+        font-size: 0.96rem;
+        column-gap: 32px;
+    }
+
+    .toc > li {
+        margin-bottom: 4px;
+    }
+
+    .toc li {
+        margin: 1px 0;
+    }
+
+    .toc a {
+        text-decoration: none;
+        color: #1d4ed8;
+    }
+
+    .toc a:hover {
+        text-decoration: underline;
+        color: #1e40af;
+    }
+
+    /* ---------- Screenshots ---------- */
+    .screenshot {
+        text-align: center;
+        margin: 18px 0 12px;
+        font-size: 0.88rem;
+        color: #6b7280;
+    }
+
+    .screenshot-inner {
+        display: inline-block;
+        background: linear-gradient(135deg, #f9fafb, #eef2ff);
+        border: 1px solid #e5e7eb;
+        padding: 9px;
+        border-radius: 12px;
+        box-shadow: 0 10px 26px rgba(15, 23, 42, 0.16);
+    }
+
+    .screenshot img {
+        max-width: 100%;
+        max-height: 420px;
+        border-radius: 8px;
+        display: block;
+    }
+
+    .screenshot div {
+        margin-top: 6px;
+    }
+
+    /* ---------- Tables ---------- */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 12px 0;
+        font-size: 0.92rem;
+    }
+
+    table, th, td {
+        border: 1px solid #e5e7eb;
+    }
+
+    th, td {
+        padding: 7px 8px;
+    }
+
+    th {
+        background: #eff6ff;
+        color: #111827;
+        font-weight: 600;
+        text-align: left;
+    }
+
+    /* ---------- Footer note ---------- */
+    .footer-note {
+        margin-top: 40px;
+        padding: 14px 18px;
+        border-radius: 10px;
+        background: linear-gradient(135deg, #eef2ff, #e0f2fe);
+        border: 1px solid #c4d3ff;
+        font-size: 0.95rem;
+        color: #1f2937;
+    }
+
+    .footer-note strong {
+        color: #111827;
+    }
+
+    /* ---------- Page breaks for print ---------- */
+    .pagebreak {
+        page-break-before: always;
+        margin-top: 40px;
+    }
+
+    /* ---------- Print styles ---------- */
+    @media print {
+        body {
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 100%;
+            margin: 0;
+            padding: 10mm 15mm;
+            box-shadow: none;
+            border-radius: 0;
+            border-top: none;
+        }
+
+        a {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .toc-wrapper {
+            box-shadow: none;
+            background: #ffffff;
+        }
+
+        .screenshot-inner {
+            box-shadow: none;
+            background: #ffffff;
+        }
+
+        .footer-note {
+            background: #ffffff;
+            border: 1px solid #d1d5db;
+        }
+
+        .pagebreak {
+            page-break-before: always;
+            margin-top: 0;
+        }
+    }
+</style>
+</head>
+<body>
+<div class="container">
+
+    <h1>UMS, Custom Quest, Activity Logger &amp; OBE System – User Guide<br>Odoo 18</h1>
+    <p><strong>Version:</strong> 1.0 &nbsp; | &nbsp; <strong>Date:</strong> 12/11/25 &nbsp; | &nbsp;
+        <strong>Prepared by: Khalique Ur Rehman</strong></p>
+
+    <div class="pagebreak"></div>
+
+    <h2>Table of Contents</h2>
+    <div class="toc-wrapper">
+        <ol class="toc">
+            <li><a href="#intro">Introduction</a>
+                <ol>
+                    <li><a href="#intro-purpose">Purpose</a></li>
+                    <li><a href="#intro-scope">Scope</a></li>
+                    <li><a href="#intro-audience">Target Audience</a></li>
+                </ol>
+            </li>
+            <li><a href="#ums-module">UMS Module</a>
+                <ol>
+                    <li><a href="#ums-overview">Overview</a></li>
+                    <li><a href="#ums-dashboard">UMS Dashboard</a></li>
+                    <li><a href="#ums-courses">Courses</a></li>
+                    <li><a href="#ums-hod-dashboard">HOD Dashboard</a></li>
+                    <li><a href="#ums-people">People</a>
+                        <ol>
+                            <li><a href="#ums-students">Students</a></li>
+                            <li><a href="#ums-staff">Staff</a></li>
+                            <li><a href="#ums-faculty">Faculty</a></li>
+                            <li><a href="#ums-all-users">All Users</a></li>
+                        </ol>
+                    </li>
+                    <li><a href="#ums-departments">Departments</a></li>
+                </ol>
+            </li>
+            <li><a href="#custom-quest-module">Custom Quest Module</a>
+                <ol>
+                    <li><a href="#cq-intro">Overview</a></li>
+                    <li><a href="#cq-getting-started">Getting Started</a></li>
+                    <li><a href="#cq-controller-dashboard">Controller Dashboard</a></li>
+                    <li><a href="#cq-paper-submission">Paper Submission</a></li>
+                    <li><a href="#cq-exam-builder">Exam Builder</a></li>
+                    <li><a href="#cq-moderator-review">Moderator Review</a></li>
+                    <li><a href="#cq-academic-calendar">Academic Calendar</a></li>
+                    <li><a href="#cq-workflow">End‑to‑End Workflow</a></li>
+                </ol>
+            </li>
+            <li><a href="#activity-logger-module">Activity Logger Module</a>
+                <ol>
+                    <li><a href="#al-overview">Overview</a></li>
+                    <li><a href="#al-sessions">Sessions</a></li>
+                    <li><a href="#al-requests">Requests</a></li>
+                    <li><a href="#al-changes">Changes</a></li>
+                    <li><a href="#al-report">Activity Report</a></li>
+                    <li><a href="#al-rules">Rules</a></li>
+                    <li><a href="#al-workflow">Typical Usage and Workflow</a></li>
+                </ol>
+            </li>
+            <li><a href="#obe-module">OBE System Module</a>
+                <ol>
+                    <li><a href="#obe-overview">Overview</a></li>
+                    <li><a href="#obe-documents">Documents</a></li>
+                    <li><a href="#obe-peos">PEOs</a></li>
+                    <li><a href="#obe-plos">PLOs</a></li>
+                    <li><a href="#obe-clos">CLOs</a></li>
+                    <li><a href="#obe-flow">OBE Data Flow and Usage</a></li>
+                </ol>
+            </li>
+        </ol>
+    </div>
+
+    <div class="pagebreak"></div>
+
+    <!-- ========================= 1. INTRODUCTION ========================== -->
+
+    <h2 id="intro">1. Introduction</h2>
+
+    <h3 id="intro-purpose">1.1 Purpose</h3>
+    <p>
+        This document describes four custom Odoo 18 modules used together to implement a complete
+        University Management and Outcome‑Based Education (OBE) solution:
+    </p>
+    <ul>
+        <li><strong>UMS Module</strong> – manages core university data such as dashboards, courses, people, and departments.</li>
+        <li><strong>Custom Quest Module</strong> – manages the full lifecycle of exam papers (building, submission, moderation, and scheduling).</li>
+        <li><strong>Activity Logger Module</strong> – records detailed user activity (sessions, requests, database changes) for audit and troubleshooting.</li>
+        <li><strong>OBE System Module</strong> – manages OBE structures (documents, PEOs, PLOs, CLOs) and links them to courses and assessments.</li>
+    </ul>
+
+    <h3 id="intro-scope">1.2 Scope</h3>
+    <p>
+        The guide explains:
+    </p>
+    <ul>
+        <li>Main screens provided by each module.</li>
+        <li>Navigation paths.</li>
+        <li>Key fields and their meaning.</li>
+        <li>Typical workflows and how the four modules connect.</li>
+    </ul>
+    <p>
+        Low‑level technical topics (source code, deployment, and security configuration) are not covered.
+    </p>
+
+    <h3 id="intro-audience">1.3 Target Audience</h3>
+    <ul>
+        <li>System administrators and examination controllers.</li>
+        <li>Heads of Department (HODs).</li>
+        <li>Faculty members and course instructors.</li>
+        <li>Academic and HR office staff.</li>
+        <li>Quality assurance and accreditation teams.</li>
+        <li>Auditors who review logs and OBE structures.</li>
+    </ul>
+
+    <div class="pagebreak"></div>
+
+    <!-- ========================= 2. UMS MODULE ========================== -->
+
+    <h2 id="ums-module">2. UMS Module</h2>
+
+    <h3 id="ums-overview">2.1 Overview</h3>
+    <p>
+        The UMS module is the central point for managing university‑wide information. It provides:
+    </p>
+    <ul>
+        <li>Dashboards:
+            <ul>
+                <li>UMS Dashboard (university‑level view).</li>
+                <li>HOD Dashboard (department‑level view).</li>
+            </ul>
+        </li>
+        <li>Academic structure:
+            <ul>
+                <li>Courses and their prerequisites/co‑requisites.</li>
+                <li>Departments and their hierarchy.</li>
+            </ul>
+        </li>
+        <li>People:
+            <ul>
+                <li>Students, Staff, Faculty, and a combined All Users view.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h3 id="ums-dashboard">2.2 UMS Dashboard</h3>
+
+    <p><strong>Navigation:</strong> UMS System → Dashboard (UMS Dashboard)</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="ums D.png" alt="UMS Dashboard">
+            <div>Figure 1: UMS Dashboard – university‑wide statistics</div>
+        </div>
+    </div>
+
+    <p>
+        The UMS Dashboard shows high‑level statistics for the entire university.
+    </p>
+    <p><strong>Key cards:</strong></p>
+    <ul>
+        <li><strong>Students</strong>
+            <ul>
+                <li>Total number of students.</li>
+                <li>Breakdown by status: Active, Graduated, Dropped.</li>
+            </ul>
+        </li>
+        <li><strong>Faculty Members</strong> – total teaching staff across all departments.</li>
+        <li><strong>Staff Members</strong> – total non‑teaching staff.</li>
+        <li><strong>Departments</strong> – total departments with counts of Teaching vs Non‑teaching departments.</li>
+    </ul>
+
+    <p><strong>Usage:</strong></p>
+    <ul>
+        <li>Management gets a quick overview of student population, human resources, and departments.</li>
+        <li>If enabled, clicking a card opens the underlying list view (for example, the list of students).</li>
+    </ul>
+
+    <h3 id="ums-courses">2.3 Courses</h3>
+
+    <p><strong>Navigation:</strong> UMS System → Courses</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="Courses.png" alt="Courses List">
+            <div>Figure 2: Courses – list view</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Maintain the list of courses offered by the university, including basic details and prerequisite structure.
+    </p>
+
+    <p><strong>Main columns:</strong></p>
+    <ul>
+        <li>Course Code – e.g., CS101.</li>
+        <li>Course Title – e.g., “Database Management Systems”.</li>
+        <li>Prerequisites – courses that must be completed before this course.</li>
+        <li>Co‑requisites – courses that must be taken alongside this course.</li>
+    </ul>
+
+    <p><strong>Typical actions:</strong></p>
+    <ul>
+        <li><strong>Create a new course</strong>
+            <ol>
+                <li>Click “Create”.</li>
+                <li>Enter Course Code and Course Title.</li>
+                <li>Add credits, level/semester, department, etc.</li>
+                <li>Choose prerequisites and co‑requisites if applicable.</li>
+                <li>Save.</li>
+            </ol>
+        </li>
+        <li>Edit existing courses to update titles, codes, or relationships.</li>
+        <li>Use search and filters to find courses by code, title, department, or level.</li>
+    </ul>
+
+    <h3 id="ums-hod-dashboard">2.4 HOD Dashboard</h3>
+
+    <p><strong>Navigation:</strong> UMS System → HOD Dashboard</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="hod.png" alt="HOD Dashboard">
+            <div>Figure 3: HOD Dashboard – department‑level summary</div>
+        </div>
+    </div>
+
+    <p>
+        The HOD Dashboard provides a department‑specific view for the logged‑in Head of Department.
+    </p>
+
+    <p><strong>Main cards:</strong></p>
+    <ul>
+        <li>Students – number of students in that department.</li>
+        <li>Faculty – faculty members belonging to the department.</li>
+        <li>Courses – courses owned by the department.</li>
+    </ul>
+
+    <p><strong>Quick Actions section:</strong></p>
+    <ul>
+        <li>View Students – opens students filtered to this department.</li>
+        <li>View Faculty – shows only faculty belonging to the department.</li>
+        <li>View Courses – shows the department’s courses.</li>
+    </ul>
+
+    <p><strong>Usage:</strong></p>
+    <ul>
+        <li>HODs quickly see the size and structure of their department.</li>
+        <li>Quick Actions allow direct navigation to relevant lists.</li>
+    </ul>
+
+    <h3 id="ums-people">2.5 People</h3>
+
+    <p>
+        The People area manages all individuals associated with the university. It typically contains four menus:
+        Students, Staff, Faculty, and All Users.
+    </p>
+
+    <h4 id="ums-students">2.5.1 Students</h4>
+
+    <p><strong>Navigation:</strong> UMS System → People → Students</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="four.png" alt="Student Form">
+            <div>Figure 4: Student – creation form</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Store personal, academic, and account information for each student and optionally create linked Odoo user accounts.
+    </p>
+
+    <p><strong>Main sections and fields:</strong></p>
+
+    <p><em>A. Basic Info</em></p>
+    <ul>
+        <li>Name – full name.</li>
+        <li>Partner Type – automatically “Student”.</li>
+        <li>Department – department or program.</li>
+        <li>Personal Email – personal contact address.</li>
+        <li>University Email – institutional email.</li>
+        <li>Roles – additional system roles if needed.</li>
+    </ul>
+
+    <p><em>B. Student Info</em></p>
+    <ul>
+        <li>Enrollment Number – official enrollment identifier.</li>
+        <li>Roll Number – departmental or batch roll number.</li>
+        <li>Additional fields as configured (semester, session, etc.).</li>
+    </ul>
+
+    <p><strong>Creating a student:</strong></p>
+    <ol>
+        <li>Click “Create”.</li>
+        <li>Fill all required fields under Basic Info and Student Info.</li>
+        <li>If the module supports it, click “Create Student Account” to automatically create an Odoo user for this student.</li>
+        <li>Save.</li>
+    </ol>
+
+    <h4 id="ums-staff">2.5.2 Staff</h4>
+
+    <p><strong>Navigation:</strong> UMS System → People → Staff</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="5.png" alt="Staff Kanban">
+            <div>Figure 5: Staff – kanban view of staff members</div>
+        </div>
+    </div>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="6.png" alt="Staff Form">
+            <div>Figure 6: Staff – creation form</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Manage non‑teaching employees.
+    </p>
+
+    <p><strong>Form view – main sections:</strong></p>
+
+    <p><em>A. Basic Info</em></p>
+    <ul>
+        <li>Name.</li>
+        <li>Partner Type – “Staff”.</li>
+        <li>Department.</li>
+        <li>Personal Email / University Email.</li>
+        <li>Roles – functional or system roles.</li>
+    </ul>
+
+    <p><em>B. Staff Info</em></p>
+    <ul>
+        <li>Employee ID – internal identifier.</li>
+        <li>Designation – job title.</li>
+        <li>Other HR fields as needed.</li>
+    </ul>
+
+    <h4 id="ums-faculty">2.5.3 Faculty</h4>
+
+    <p><strong>Navigation:</strong> UMS System → People → Faculty</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="6.png" alt="Faculty Form">
+            <div>Figure 7: Faculty – creation form</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Manage teaching staff.
+    </p>
+
+    <p><strong>Basic Info:</strong></p>
+    <ul>
+        <li>Name.</li>
+        <li>Partner Type – “Faculty”.</li>
+        <li>Department.</li>
+        <li>Personal / University Email.</li>
+        <li>Roles – Instructor, HOD, Program Coordinator, etc.</li>
+    </ul>
+
+    <p><strong>Faculty Info:</strong></p>
+    <ul>
+        <li>Faculty ID.</li>
+        <li>Academic Rank – Lecturer, Assistant Professor, etc.</li>
+        <li>Additional fields as defined by your configuration.</li>
+    </ul>
+
+    <p>
+        The button “Create Faculty Account” can be used (if enabled) to create a login for the faculty member.
+    </p>
+
+    <h4 id="ums-all-users">2.5.4 All Users</h4>
+
+    <p><strong>Navigation:</strong> UMS System → People → All Users</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="7.png" alt="All Users">
+            <div>Figure 8: All Users – combined user list</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Provide a unified list of everyone who has an Odoo login account (students, staff, faculty, admins).
+    </p>
+
+    <p><strong>Typical fields:</strong></p>
+    <ul>
+        <li>Name.</li>
+        <li>Email / Login.</li>
+        <li>User Type or Role.</li>
+        <li>Active status.</li>
+    </ul>
+
+    <p><strong>Usage:</strong></p>
+    <ul>
+        <li>Quickly find any user by name or email.</li>
+        <li>For administrators, open a user to view or adjust access rights.</li>
+    </ul>
+
+    <h3 id="ums-departments">2.6 Departments</h3>
+
+    <p><strong>Navigation:</strong> UMS System → Departments</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="8.png" alt="Departments List">
+            <div>Figure 9: Departments – list view</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Manage academic and administrative departments.
+    </p>
+
+    <p><strong>Main columns:</strong></p>
+    <ul>
+        <li>Full Name – e.g., “Computer Science”.</li>
+        <li>Short Name – e.g., “CS”.</li>
+        <li>Establishment Date – when the department was established.</li>
+        <li>Parent Department – to build a hierarchical structure.</li>
+        <li>Active – whether the department is currently active.</li>
+    </ul>
+
+    <p><strong>Typical actions:</strong></p>
+    <ul>
+        <li>Create new departments and assign parent departments if required.</li>
+        <li>Update existing department information (rename, change parent, change active flag).</li>
+        <li>Deactivate departments that are no longer in use while keeping historical data.</li>
+    </ul>
+
+    <div class="pagebreak"></div>
+
+    <!-- ====================== 3. CUSTOM QUEST MODULE ===================== -->
+
+    <h2 id="custom-quest-module">3. Custom Quest Module</h2>
+
+    <h3 id="cq-intro">3.1 Overview</h3>
+
+    <p>
+        The Custom Quest module manages the complete lifecycle of exam papers inside UMS. It is tightly integrated with
+        UMS data (courses, departments, people) and with CLOs in the OBE System module.
+    </p>
+
+    <p><strong>Main components:</strong></p>
+    <ul>
+        <li>Controller Dashboard – high‑level status of all papers.</li>
+        <li>Paper Submission – repository of submitted exam papers.</li>
+        <li>Exam Builder – tool for constructing exams (sections, questions, marks, CLOs).</li>
+        <li>Moderator Review – interface for academic review and approval.</li>
+        <li>Academic Calendar – planning and notification of academic events, especially exams.</li>
+    </ul>
+
+    <h3 id="cq-getting-started">3.2 Getting Started</h3>
+
+    <h4>3.2.1 Prerequisites</h4>
+    <ul>
+        <li>Odoo 18 with the Custom Quest module installed.</li>
+        <li>User roles set up for Controller, Instructor, Moderator, and Academic Office staff.</li>
+    </ul>
+
+    <h4>3.2.2 Accessing Custom Quest</h4>
+    <ol>
+        <li>Log in to Odoo and open the UMS System.</li>
+        <li>Click the “Quest” menu in the top navigation bar.</li>
+        <li>Use the submenu items to open:
+            Controller Dashboard, Paper Submission, Exam Builder, Moderator Review, Academic Calendar.</li>
+    </ol>
+
+    <h3 id="cq-controller-dashboard">3.3 Controller Dashboard</h3>
+
+    <p><strong>Navigation:</strong> Quest → Controller Dashboard</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="10.png" alt="Custom Quest Controller Dashboard">
+            <div>Figure 10: Controller Dashboard – paper statistics</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Give the Examination Controller a real‑time summary of exam papers and their status.
+    </p>
+
+    <p>The dashboard typically shows:</p>
+    <ul>
+        <li>Central “Papers” card – total number of papers.</li>
+        <li>Status cards:
+            <ul>
+                <li>Under Review – papers currently being reviewed.</li>
+                <li>Revision – papers returned to authors for changes.</li>
+                <li>Accepted – approved papers ready for use.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <p><strong>Usage:</strong></p>
+    <ul>
+        <li>Verify that all courses have submitted their required exam papers.</li>
+        <li>Monitor how many papers are still under review or in revision close to exam dates.</li>
+        <li>Ensure that enough papers are accepted before printing or publishing.</li>
+    </ul>
+
+    <h3 id="cq-paper-submission">3.4 Paper Submission</h3>
+
+    <p><strong>Navigation:</strong> Quest → Paper Submission</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="11.png" alt="Paper Submission List">
+            <div>Figure 11: Paper Submission – list view</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Store and track exam papers submitted by instructors and link them to courses and reviewers.
+    </p>
+
+    <p><strong>Typical columns:</strong></p>
+    <ul>
+        <li>Paper Title – name of the exam paper.</li>
+        <li>Author Name – instructor who created the paper.</li>
+        <li>Submission Date.</li>
+        <li>Category – exam type (Midterm, Final, Quiz, etc.).</li>
+        <li>Main Reviewer – assigned moderator.</li>
+        <li>Status – current state:
+            Draft, Under Review, Revision, Accepted, etc.</li>
+    </ul>
+
+    <p><strong>Creating a submission:</strong></p>
+    <ol>
+        <li>Click “Create” or “+ Paper Submission”.</li>
+        <li>Enter Paper Title and link it to the appropriate Course/Department.</li>
+        <li>Choose Category and assign a Main Reviewer.</li>
+        <li>Attach the exam document or link it to the corresponding Exam Builder record.</li>
+        <li>Save; set Status as Draft or Under Review according to your workflow.</li>
+    </ol>
+
+    <p><strong>Managing submissions:</strong></p>
+    <ul>
+        <li>Use filters to view papers by course, author, reviewer, or status.</li>
+        <li>Update Status as moderators accept or return papers for revision.</li>
+    </ul>
+
+    <h3 id="cq-exam-builder">3.5 Exam Builder</h3>
+
+    <p><strong>Navigation:</strong> Quest → Exam Builder</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="12.png" alt="Exam Builder List">
+            <div>Figure 12: Exam Builder – list view</div>
+        </div>
+    </div>
+
+    <p>
+        The Exam Builder is used by instructors to design structured exam papers.
+        Each record represents a specific exam instance.
+    </p>
+
+    <p><strong>List view columns:</strong></p>
+    <ul>
+        <li>Exam Title – e.g., “Final Term Examination”.</li>
+        <li>Course – associated course.</li>
+        <li>Exam Type – Midterm, Final, Quiz, etc.</li>
+        <li>Date – scheduled exam date.</li>
+        <li>Marks – total marks for the exam.</li>
+        <li>Status – Draft, Building, Review, Approved, Rejected.</li>
+    </ul>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="13.png" alt="Exam Form - Builder Tab">
+            <div>Figure 13: Exam Builder – exam form (Builder tab)</div>
+        </div>
+    </div>
+
+    <p><strong>Exam form – main elements:</strong></p>
+    <ul>
+        <li>Buttons:
+            <ul>
+                <li><strong>Start Building</strong> – move exam into building mode so sections and questions can be added.</li>
+                <li><strong>Preview</strong> – open a read‑only preview of the exam layout.</li>
+            </ul>
+        </li>
+        <li>Status bar: Draft → Building → Review → Approved → Rejected.</li>
+        <li>Tabs:
+            <ul>
+                <li><strong>Exam Configuration</strong> – basic info: course, exam type, date, duration, total marks.</li>
+                <li><strong>Exam Header</strong> – header text and instructions displayed on the exam paper.</li>
+                <li><strong>Builder</strong> – main tab for adding sections and questions.</li>
+                <li><strong>Details</strong> – additional metadata or internal notes.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h4>3.5.1 Builder Tab – Structure</h4>
+
+    <p>
+        Inside the Builder tab you typically have the following sub‑tabs:
+    </p>
+    <ul>
+        <li><strong>Questions</strong> – table of all questions in the exam.</li>
+        <li><strong>Sections</strong> – definitions of exam sections (e.g., Section 01, Section 02).</li>
+        <li><strong>CLO Analysis</strong> – mapping of questions to Course Learning Outcomes.</li>
+    </ul>
+
+    <p><strong>Questions table fields:</strong></p>
+    <ul>
+        <li>Section – section name/number.</li>
+        <li>Question Type – Multiple Choice, Short Question, Essay, etc.</li>
+        <li>Question Text – question statement.</li>
+        <li>Has Multiple … – indicates if multiple correct answers are allowed.</li>
+        <li>Marks – marks allocated to the question.</li>
+        <li>CLO – CLO number or code linked to the question.</li>
+    </ul>
+
+    <h4>3.5.2 Adding Sections and Questions</h4>
+
+    <p><strong>Adding a section:</strong></p>
+    <ol>
+        <li>Open the exam and go to <em>Builder → Sections</em>.</li>
+        <li>Click “Add a line”.</li>
+        <li>Enter the section title, order, and any section‑level instructions.</li>
+        <li>Save.</li>
+    </ol>
+
+    <p><strong>Adding a question:</strong></p>
+    <ol>
+        <li>Go to <em>Builder → Questions</em>.</li>
+        <li>Click “Add Question” or “Add a line”.</li>
+        <li>Select or create the Section.</li>
+        <li>Choose Question Type.</li>
+        <li>Enter the Question Text.</li>
+        <li>Set the Marks and select a CLO.</li>
+        <li>Enable “Has Multiple …” if there are multiple correct answers.</li>
+        <li>Repeat for all questions.</li>
+    </ol>
+
+    <h4>3.5.3 CLO Analysis</h4>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Ensure that the exam assesses the correct Course Learning Outcomes and that marks are distributed appropriately.
+    </p>
+
+    <p><strong>Usage:</strong></p>
+    <ul>
+        <li>Open the CLO Analysis sub‑tab to see how many marks are mapped to each CLO.</li>
+        <li>Adjust questions or marks if certain CLOs are under‑ or over‑represented.</li>
+    </ul>
+
+    <h3 id="cq-moderator-review">3.6 Moderator Review</h3>
+
+    <p><strong>Navigation:</strong> Quest → Moderator Review</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="13.png" alt="Moderator Review List">
+            <div>Figure 14: Moderator Review – list view</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Provide moderators with a list of papers assigned to them for review and capture ratings and decisions.
+    </p>
+
+    <p><strong>Typical columns:</strong></p>
+    <ul>
+        <li>Paper Title.</li>
+        <li>Author Name.</li>
+        <li>Reviewer.</li>
+        <li>Rating.</li>
+        <li>Status – Under Review, Revision, Accepted, etc.</li>
+    </ul>
+
+    <p><strong>Review process:</strong></p>
+    <ol>
+        <li>Moderator opens a paper from the Moderator Review list.</li>
+        <li>Reviews questions, marks distribution, difficulty, and CLO mapping.</li>
+        <li>Adds comments and sets Rating if required.</li>
+        <li>Updates Status:
+            <ul>
+                <li>Accepted – paper is approved for final use.</li>
+                <li>Revision – paper is returned to the author with feedback for changes.</li>
+            </ul>
+        </li>
+    </ol>
+
+    <h3 id="cq-academic-calendar">3.7 Academic Calendar</h3>
+
+    <p><strong>Navigation:</strong> Quest → Academic Calendar</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="14.png" alt="Academic Calendar">
+            <div>Figure 15: Academic Calendar – list of academic events</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Schedule and manage academic events, especially exams, and send reminders.
+    </p>
+
+    <p><strong>Columns:</strong></p>
+    <ul>
+        <li>Event Name.</li>
+        <li>Event Type – Exam, Workshop, Conference, etc.</li>
+        <li>Start Date.</li>
+        <li>Location.</li>
+        <li>Status – Planned, Confirmed, Completed, Cancelled, etc.</li>
+    </ul>
+
+    <p><strong>Creating an event:</strong></p>
+    <ol>
+        <li>Click “Create”.</li>
+        <li>Enter Event Name and Event Type.</li>
+        <li>Set Start Date and Location.</li>
+        <li>Fill any additional fields as defined by your system.</li>
+        <li>Save. For exam events, notifications (for example, 14 days before) are sent to staff.</li>
+    </ol>
+
+    <p><strong>Managing events:</strong></p>
+    <ul>
+        <li>Edit events to change dates or details.</li>
+        <li>Update Status as events are confirmed or completed.</li>
+        <li>Filter by type or date range to view only upcoming exams.</li>
+    </ul>
+
+    <h3 id="cq-workflow">3.8 End‑to‑End Workflow</h3>
+
+    <p>
+        The following high‑level workflow explains how Custom Quest is used from planning to finalization of exams.
+    </p>
+
+    <ol>
+        <li><strong>Plan Exams</strong> – The Academic Office uses the Academic Calendar to create exam events for each course and semester.</li>
+        <li><strong>Build Exams</strong> – Instructors open Exam Builder and create exams (Midterm, Final, etc.), defining sections, questions, marks, and CLO mappings. Exam status moves from Draft to Building.</li>
+        <li><strong>Submit Papers</strong> – Once complete, the exam paper is linked to a Paper Submission record, assigned a Main Reviewer, and set to Under Review.</li>
+        <li><strong>Moderate Papers</strong> – Moderators review via Moderator Review, rate papers, and set Status to Accepted or Revision.</li>
+        <li><strong>Revise (if required)</strong> – Authors update exams based on feedback and resubmit for another review.</li>
+        <li><strong>Monitor Progress</strong> – The Controller uses the Controller Dashboard to ensure all papers reach Accepted before the scheduled exam dates.</li>
+        <li><strong>Finalize Exams</strong> – Accepted papers are ready for printing and use on exam day.</li>
+    </ol>
+
+    <div class="pagebreak"></div>
+
+    <!-- ====================== 4. ACTIVITY LOGGER MODULE ===================== -->
+
+    <h2 id="activity-logger-module">4. Activity Logger Module</h2>
+
+    <h3 id="al-overview">4.1 Overview</h3>
+
+    <p>
+        The Activity Logger module records detailed user activity in the Odoo system.
+        Its objectives are auditability, traceability, and support for troubleshooting.
+    </p>
+
+    <p><strong>Main components:</strong></p>
+    <ul>
+        <li>Sessions – user login sessions.</li>
+        <li>Requests – each HTTP/API request made during a session.</li>
+        <li>Changes – database operations triggered by a request.</li>
+        <li>Activity Report – consolidated reporting view.</li>
+        <li>Rules – configuration of what is tracked and at what level of detail.</li>
+    </ul>
+
+    <h3 id="al-sessions">4.2 Sessions</h3>
+
+    <p><strong>Navigation:</strong> Activity Logger → Sessions</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="16.png" alt="Sessions Form">
+            <div>Figure 16: Sessions – form view</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Group all requests made by a user during a single login session.
+    </p>
+
+    <p><strong>Main fields:</strong></p>
+    <ul>
+        <li>Session – unique session identifier (e.g., “SESS/000001”).</li>
+        <li>User – user associated with the session.</li>
+        <li>Create Date – when the session started.</li>
+    </ul>
+
+    <p>
+        The <strong>Requests</strong> tab lists all requests belonging to this session.
+    </p>
+
+    <h3 id="al-requests">4.3 Requests</h3>
+
+    <p><strong>Navigation:</strong> Activity Logger → Requests</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="17.png" alt="Requests Form">
+            <div>Figure 17: Requests – form view</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Capture each HTTP/API request, including information on user, path, and context.
+    </p>
+
+    <p><strong>Main fields:</strong></p>
+    <ul>
+        <li>Path – URL path accessed.</li>
+        <li>Root URL – base system URL.</li>
+        <li>Method – HTTP method (GET, POST, PUT, DELETE, etc.).</li>
+        <li>User – who made the request.</li>
+        <li>Session – link to the related Session.</li>
+        <li>Context JSON – raw JSON context (language, timezone, etc.).</li>
+    </ul>
+
+    <p>
+        The <strong>Changes</strong> tab lists all data changes triggered by the request.
+    </p>
+
+    <h3 id="al-changes">4.4 Changes</h3>
+
+    <p><strong>Navigation:</strong> Activity Logger → Changes</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="18.png" alt="Changes Form">
+            <div>Figure 18: Changes – form view</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Store record‑level operations (create, write, delete) executed on Odoo models.
+    </p>
+
+    <p><strong>Main fields:</strong></p>
+    <ul>
+        <li>Change – internal reference or name.</li>
+        <li>Model – technical model name affected.</li>
+        <li>Record IDs (csv) – IDs of affected records.</li>
+        <li>Method – type of operation (create, write, unlink, etc.).</li>
+        <li>Mode – Quick or Detailed logging.</li>
+        <li>User – user who performed the operation.</li>
+        <li>Request – related Request.</li>
+        <li>Session – related Session.</li>
+        <li>Create Date – timestamp.</li>
+    </ul>
+
+    <p>
+        The <strong>Field Changes</strong> tab contains field‑level details:
+        Field Name, Field Label, Old Value Text, New Value Text.
+    </p>
+
+    <h3 id="al-report">4.5 Activity Report</h3>
+
+    <p><strong>Navigation:</strong> Activity Logger → Activity Report</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="19.png" alt="Activity Report">
+            <div>Figure 19: Activity Report – consolidated view</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Provide a flattened view of change history with key fields for reporting and export.
+    </p>
+
+    <p><strong>Columns typically:</strong></p>
+    <ul>
+        <li>Create Date.</li>
+        <li>Model.</li>
+        <li>Res Ids Text – text for affected records.</li>
+        <li>Change Method – create, write, unlink, etc.</li>
+        <li>Field Name.</li>
+        <li>Old Value Text.</li>
+        <li>New Value Text.</li>
+        <li>Path – URL path that triggered the change.</li>
+        <li>User – who made the change.</li>
+    </ul>
+
+    <p><strong>Usage:</strong></p>
+    <ul>
+        <li>Filter by Model (e.g., ums.student) to see all changes for that model.</li>
+        <li>Filter by User or date range for audit purposes.</li>
+        <li>Export to Excel/CSV for offline analysis and compliance reports.</li>
+    </ul>
+
+    <h3 id="al-rules">4.6 Rules</h3>
+
+    <p><strong>Navigation:</strong> Activity Logger → Rules</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="20.png" alt="Rules Form">
+            <div>Figure 20: Rules – configuration form</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Control which models and operations are logged, and how detailed the logging is.
+    </p>
+
+    <p><strong>Main fields:</strong></p>
+    <ul>
+        <li>Name – descriptive rule name (e.g., “Track Student Records”).</li>
+        <li>Active – whether the rule is enabled.</li>
+        <li>Model – model to monitor (e.g., ums.student, obe.clo).</li>
+        <li>Mode – logging mode:
+            <ul>
+                <li>Detailed – include field‑level changes.</li>
+                <li>Quick – record only summary change information.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <p><strong>Operations section:</strong></p>
+    <ul>
+        <li>Track Create – log record creation.</li>
+        <li>Track Write – log updates.</li>
+        <li>Track Unlink – log deletions.</li>
+        <li>Track Read – log reads (optional, heavier).</li>
+        <li>Track Export – log exports (optional).</li>
+    </ul>
+
+    <p><strong>Exclusions section (if configured):</strong></p>
+    <ul>
+        <li>Fields or users to exclude from logging.</li>
+    </ul>
+
+    <h3 id="al-workflow">4.7 Typical Usage and Workflow</h3>
+
+    <ol>
+        <li>Configure logging Rules for important models.</li>
+        <li>Users operate normally; Activity Logger creates Sessions, Requests, and Changes automatically.</li>
+        <li>When an issue arises, administrators use Activity Report to filter by model, user, and date.</li>
+        <li>They drill down from Activity Report → Change → Request → Session to see full context.</li>
+        <li>Exports from Activity Report can be used in formal audits or accreditation evidence.</li>
+    </ol>
+
+    <div class="pagebreak"></div>
+
+    <!-- ====================== 5. OBE SYSTEM MODULE ===================== -->
+
+    <h2 id="obe-module">5. OBE System Module</h2>
+
+    <h3 id="obe-overview">5.1 Overview</h3>
+
+    <p>
+        The OBE System module supports Outcome‑Based Education by structuring program and course outcomes
+        and linking them to reference documents and courses.
+    </p>
+
+    <p>It manages:</p>
+    <ul>
+        <li><strong>Documents</strong> – official OBE‑related documents (vision, mission, curriculum, policies).</li>
+        <li><strong>PEOs</strong> – Program Educational Objectives defined at program level.</li>
+        <li><strong>PLOs</strong> – Program Learning Outcomes, mapped to PEOs.</li>
+        <li><strong>CLOs</strong> – Course Learning Outcomes, mapped to PLOs and courses and later used in Custom Quest exams.</li>
+    </ul>
+
+    <p>
+        Together, these elements ensure that exams, courses, and programs are aligned with institutional outcomes
+        and accreditation requirements.
+    </p>
+
+    <h3 id="obe-documents">5.2 Documents</h3>
+
+    <p><strong>Navigation:</strong> OBE System → Documents</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="21.png" alt="Documents List">
+            <div>Figure 21: Documents – list view</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Maintain official reference documents that define and justify the outcome structure
+        (vision documents, curriculum documents, OBE manuals, etc.).
+    </p>
+
+    <p><strong>List view columns:</strong></p>
+    <ul>
+        <li>Title – document title (e.g., “Vision Document”).</li>
+        <li>Reference / Number – internal reference or number (e.g., 11100).</li>
+        <li>Version – version number (e.g., 1.0).</li>
+        <li>Type – document type (e.g., Curriculum, Vision, Mission, Policy).</li>
+        <li>Effective Date – date from which this version is valid.</li>
+        <li>Status – Unpublished / Published.</li>
+    </ul>
+
+    <p><strong>Typical actions:</strong></p>
+    <ul>
+        <li>Create a new document:
+            <ol>
+                <li>Click “Create”.</li>
+                <li>Enter Title, Reference / Number, Version, Type, and Effective Date.</li>
+                <li>Attach the actual file if your configuration supports it.</li>
+                <li>Set Status to Draft/Unpublished until approved, then to Published.</li>
+                <li>Save.</li>
+            </ol>
+        </li>
+        <li>Link Documents as “Reference Document” in PEO, PLO, and CLO records to
+            show which document defines each outcome.</li>
+    </ul>
+
+    <h3 id="obe-peos">5.3 PEOs (Program Educational Objectives)</h3>
+
+    <p><strong>Navigation:</strong> OBE System → PEOs</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="22.png" alt="PEOs List">
+            <div>Figure 22: PEOs – list view</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Define long‑term Program Educational Objectives for a degree program
+        (what graduates are expected to achieve several years after graduation).
+    </p>
+
+    <p><strong>List view columns:</strong></p>
+    <ul>
+        <li>PEO – code or reference (e.g., PEO‑1).</li>
+        <li>PEO Title – short title of the objective.</li>
+        <li>PEO Description – detailed description (e.g., “Goes through the Project”).</li>
+        <li>Status – Unpublished / Published.</li>
+        <li>Reference Document – link to the Document record that describes this PEO.</li>
+    </ul>
+
+    <p><strong>Typical workflow:</strong></p>
+    <ol>
+        <li>Academic quality team creates PEOs based on program vision and accreditation standards.</li>
+        <li>Each PEO is linked to the relevant Document (e.g., Vision Document or Curriculum document).</li>
+        <li>PEOs are set to Published once approved.</li>
+        <li>PLOs are then mapped to these PEOs to show alignment.</li>
+    </ol>
+
+    <h3 id="obe-plos">5.4 PLOs (Program Learning Outcomes)</h3>
+
+    <p><strong>Navigation:</strong> OBE System → PLOs</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="23.png" alt="PLOs List">
+            <div>Figure 23: PLOs – list view</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Define observable and measurable Program Learning Outcomes – what students should be able
+        to know or do at the time of graduation.
+    </p>
+
+    <p><strong>List view columns:</strong></p>
+    <ul>
+        <li>PLO Title – name of the outcome (e.g., “Graduate Attribute 2”).</li>
+        <li>Mapped PEO – PEO(s) that this PLO supports.</li>
+        <li>PLO Description – detailed description.</li>
+        <li>Status – Unpublished / Published.</li>
+        <li>Reference Document – document where this PLO is formally defined.</li>
+    </ul>
+
+    <p><strong>Typical usage:</strong></p>
+    <ul>
+        <li>For each PLO, specify which PEO(s) it supports using the Mapped PEO field.</li>
+        <li>Use status to control which PLOs are active for current accreditation cycles.</li>
+        <li>Ensure every PLO has a Reference Document for audit traceability.</li>
+    </ul>
+
+    <h3 id="obe-clos">5.5 CLOs (Course Learning Outcomes)</h3>
+
+    <p><strong>Navigation:</strong> OBE System → CLOs</p>
+
+    <div class="screenshot">
+        <div class="screenshot-inner">
+            <img src="24.png" alt="CLOs List">
+            <div>Figure 24: CLOs – list view</div>
+        </div>
+    </div>
+
+    <p><strong>Purpose:</strong></p>
+    <p>
+        Define Course Learning Outcomes for each course and link them to
+        Program Learning Outcomes (PLOs).
+    </p>
+
+    <p><strong>List view columns:</strong></p>
+    <ul>
+        <li>CLO Title – identifier or code (e.g., “1”).</li>
+        <li>Description – short description of the outcome.</li>
+        <li>Taxonomy Level – cognitive level (e.g., Applying, Understanding, Analyzing).</li>
+        <li>Course – related course (e.g., “Database Management Systems”).</li>
+        <li>Associated PLO – PLO that this CLO contributes to (e.g., “Graduate Attribute 2”).</li>
+        <li>Status – Unpublished / Published.</li>
+        <li>Reference Document – the document where this CLO is described.</li>
+    </ul>
+
+    <p><strong>Typical workflow:</strong></p>
+    <ol>
+        <li>For each course, define a set of CLOs that describe what students will learn.</li>
+        <li>Assign a Taxonomy Level to reflect the expected cognitive level.</li>
+        <li>Link each CLO to the appropriate PLO using “Associated PLO”.</li>
+        <li>Link to the relevant Document (for example, course specification).</li>
+        <li>Set Status to Published after academic approval.</li>
+    </ol>
+
+    <p><strong>Connection with Custom Quest:</strong></p>
+    <p>
+        In Exam Builder, questions are tagged with CLOs; this enables CLO Analysis and ensures that
+        exams assess the intended course outcomes defined here.
+    </p>
+
+    <h3 id="obe-flow">5.6 OBE Data Flow and Usage</h3>
+
+    <p>
+        The OBE System module works in the following logical order:
+    </p>
+
+    <ol>
+        <li><strong>Documents</strong>
+            <ul>
+                <li>Store institutional and program‑level reference documents: vision, mission, curriculum, OBE policies, etc.</li>
+                <li>These documents are attached to outcomes as formal evidence.</li>
+            </ul>
+        </li>
+        <li><strong>PEOs</strong>
+            <ul>
+                <li>Use these documents to define Program Educational Objectives for each program.</li>
+                <li>Approved PEOs are linked to one or more documents.</li>
+            </ul>
+        </li>
+        <li><strong>PLOs</strong>
+            <ul>
+                <li>For each program, define PLOs and map them to the PEOs they support.</li>
+                <li>This shows how day‑to‑day learning outcomes contribute to long‑term objectives.</li>
+            </ul>
+        </li>
+        <li><strong>CLOs</strong>
+            <ul>
+                <li>For each course, define CLOs and map each CLO to one PLO, with taxonomy levels.</li>
+                <li>CLOs are linked to course specifications and are later used in Custom Quest exams.</li>
+            </ul>
+        </li>
+        <li><strong>Assessments (via Custom Quest)</strong>
+            <ul>
+                <li>Exam questions are linked to CLOs in Exam Builder.</li>
+                <li>CLO Analysis in Custom Quest reports how much of each CLO is assessed and with how many marks.</li>
+                <li>This closes the loop between institutional documents, program objectives, learning outcomes, and actual assessments.</li>
+            </ul>
+        </li>
+    </ol>
+
+    <p><strong>Overall benefits:</strong></p>
+    <ul>
+        <li>Clear alignment between university vision, program objectives, learning outcomes, courses, and exams.</li>
+        <li>Strong evidence for accreditation bodies and quality assurance audits.</li>
+        <li>Ability to trace any exam question back to the CLO, PLO, PEO, and Document that justify it.</li>
+    </ul>
+    <div class="footer-note">
+    <center>This product is proudly powered by <strong>Easeesoft Software House</strong></center>.
+</div>
+</div>
+</body>
+</html>
